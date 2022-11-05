@@ -16,7 +16,7 @@ namespace Proyecto_SO_Manejador_Tareas
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Menu());
         }
     }
 }
