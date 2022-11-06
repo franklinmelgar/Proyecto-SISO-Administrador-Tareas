@@ -52,6 +52,18 @@
     <Compile Include="Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProcesoCPU.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProcesoCPU.Designer.cs">
+      <DependentUpon>ProcesoCPU.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProcesoMiltipleCola.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProcesoMiltipleCola.Designer.cs">
+      <DependentUpon>ProcesoMiltipleCola.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProcesoPorSorteo.cs">
       <SubType>Form</SubType>
     </Compile>

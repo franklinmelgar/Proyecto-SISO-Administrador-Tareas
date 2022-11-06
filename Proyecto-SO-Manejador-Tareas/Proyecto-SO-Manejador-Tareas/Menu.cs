@@ -26,6 +26,7 @@ namespace Proyecto_SO_Manejador_Tareas
         public int probabilidad;
         public int ticketMinimo;
         public int ticketMaximo;
+
     }
 
    
@@ -89,6 +90,9 @@ namespace Proyecto_SO_Manejador_Tareas
                 AddOwnedForm(agregarProcesosSorteo);
                 agregarProcesosSorteo.Show();
             
+            }else if (cmbAlgoritmo.Text.Equals("Multiple Colas"))
+            {
+
             }else if (cmbAlgoritmo.Text.Equals(""))
             {
                 MessageBox.Show("Debe seleccionar un algoritmo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -272,25 +276,44 @@ namespace Proyecto_SO_Manejador_Tareas
         }
 
 
-
         private void generarColumnasGrid(string algoritmoNombre)
         {
             grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Clear()));
 
             if (algoritmoNombre.Equals("Round Robin"))
             {
+                groupBox1.Invoke((MethodInvoker)(() => groupBox1.Size = new Size(400, 700)));
                 grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("Id", "Id")));
                 grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("nombre", "Nombre Proceso")));
                 grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("rafaga", "Rafaga CPU")));
+                grupoTicket.Invoke((MethodInvoker)(() => grupoTicket.Visible = false));
+                groupBox6.Invoke((MethodInvoker)(() => groupBox6.Visible = false));
+                groupBox7.Invoke((MethodInvoker)(() => groupBox7.Visible = false));
 
             }
             else if (algoritmoNombre.Equals("Por sorteo"))
             {
+                grupoTicket.Invoke((MethodInvoker)(() => grupoTicket.Visible = true));
+                groupBox1.Invoke((MethodInvoker)(() => groupBox1.Size = new Size(400, 700)));
                 grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("Id", "Id")));
                 grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("nombre", "Nombre Proceso")));
                 grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("rafaga", "Rafaga CPU")));
                 grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("tickets", "Tickets")));
                 grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("probabilidad", "Probabilidad")));
+                groupBox6.Invoke((MethodInvoker)(() => groupBox6.Visible = false));
+                groupBox7.Invoke((MethodInvoker)(() => groupBox7.Visible = false));
+            }
+            else if (algoritmoNombre.Equals("Multiple Colas"))
+            {
+                grupoTicket.Invoke((MethodInvoker)(() => grupoTicket.Visible = false));
+                groupBox1.Invoke((MethodInvoker)(() => groupBox1.Size = new Size(400, 200)));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("Id", "Id")));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("nombre", "Nombre Proceso")));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("rafaga", "Rafaga CPU")));
+                groupBox6.Invoke((MethodInvoker)(() => groupBox6.Visible = true));
+                groupBox6.Invoke((MethodInvoker)(() => groupBox6.Location = new Point(30, 270)));
+                groupBox7.Invoke((MethodInvoker)(() => groupBox7.Visible = true));
+                groupBox7.Invoke((MethodInvoker)(() => groupBox7.Location = new Point(30, 480)));
             }
 
         }
