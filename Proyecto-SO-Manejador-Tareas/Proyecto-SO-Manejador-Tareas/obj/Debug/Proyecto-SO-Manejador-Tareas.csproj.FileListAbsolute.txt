@@ -11,3 +11,4 @@ C:\Users\frank\OneDrive\Documents\Clases Ceutec\Proyectos desarrollo\Proyecto-SO
 C:\Users\frank\OneDrive\Documents\Clases Ceutec\Proyectos desarrollo\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.pdb
 C:\Users\frank\OneDrive\Documents\Clases Ceutec\Proyectos desarrollo\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.ProcesosRoundRobin.resources
 C:\Users\frank\OneDrive\Documents\Clases Ceutec\Proyectos desarrollo\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.ProcesoPorSorteo.resources
+C:\Users\frank\OneDrive\Documents\Clases Ceutec\Proyectos desarrollo\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.ProcesoMiltipleCola.resources

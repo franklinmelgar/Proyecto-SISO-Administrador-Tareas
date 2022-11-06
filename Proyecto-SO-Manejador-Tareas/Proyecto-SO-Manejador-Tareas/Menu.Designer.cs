@@ -66,12 +66,12 @@
             this.txtQuantumGeneral = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.grdProcesosListosNivel2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.grdProcesosListosNivel3 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,9 +86,9 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdProcesosListos)).BeginInit();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdProcesosListosNivel2)).BeginInit();
             this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdProcesosListosNivel3)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -452,7 +452,7 @@
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.dataGridView1);
+            this.groupBox6.Controls.Add(this.grdProcesosListosNivel2);
             this.groupBox6.Location = new System.Drawing.Point(36, 376);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(534, 250);
@@ -461,21 +461,21 @@
             this.groupBox6.Text = "Listos nivel 2";
             this.groupBox6.Visible = false;
             // 
-            // dataGridView1
+            // grdProcesosListosNivel2
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.grdProcesosListosNivel2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.grdProcesosListosNivel2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdProcesosListosNivel2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8,
             this.dataGridViewTextBoxColumn9});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 18);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(528, 229);
-            this.dataGridView1.TabIndex = 0;
+            this.grdProcesosListosNivel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdProcesosListosNivel2.Location = new System.Drawing.Point(3, 18);
+            this.grdProcesosListosNivel2.Name = "grdProcesosListosNivel2";
+            this.grdProcesosListosNivel2.RowHeadersWidth = 51;
+            this.grdProcesosListosNivel2.RowTemplate.Height = 24;
+            this.grdProcesosListosNivel2.Size = new System.Drawing.Size(528, 229);
+            this.grdProcesosListosNivel2.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn7
             // 
@@ -500,7 +500,7 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.dataGridView2);
+            this.groupBox7.Controls.Add(this.grdProcesosListosNivel3);
             this.groupBox7.Location = new System.Drawing.Point(36, 648);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(534, 250);
@@ -509,21 +509,21 @@
             this.groupBox7.Text = "Listos nivel 3";
             this.groupBox7.Visible = false;
             // 
-            // dataGridView2
+            // grdProcesosListosNivel3
             // 
-            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.grdProcesosListosNivel3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.grdProcesosListosNivel3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdProcesosListosNivel3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12});
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(3, 18);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(528, 229);
-            this.dataGridView2.TabIndex = 0;
+            this.grdProcesosListosNivel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdProcesosListosNivel3.Location = new System.Drawing.Point(3, 18);
+            this.grdProcesosListosNivel3.Name = "grdProcesosListosNivel3";
+            this.grdProcesosListosNivel3.RowHeadersWidth = 51;
+            this.grdProcesosListosNivel3.RowTemplate.Height = 24;
+            this.grdProcesosListosNivel3.Size = new System.Drawing.Size(528, 229);
+            this.grdProcesosListosNivel3.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn10
             // 
@@ -576,9 +576,9 @@
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdProcesosListos)).EndInit();
             this.groupBox6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdProcesosListosNivel2)).EndInit();
             this.groupBox7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grdProcesosListosNivel3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -624,12 +624,12 @@
         private System.Windows.Forms.GroupBox grupoTicket;
         private System.Windows.Forms.Label lblTicket;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView grdProcesosListosNivel3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView grdProcesosListosNivel2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;

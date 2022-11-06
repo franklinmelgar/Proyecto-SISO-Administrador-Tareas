@@ -81,6 +81,9 @@
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProcesoMiltipleCola.resx">
+      <DependentUpon>ProcesoMiltipleCola.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProcesoPorSorteo.resx">
       <DependentUpon>ProcesoPorSorteo.cs</DependentUpon>
     </EmbeddedResource>
