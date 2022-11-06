@@ -63,6 +63,8 @@
             this.txtTiempo = new System.Windows.Forms.TextBox();
             this.txtQuantumGeneral = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lblTicket = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -72,6 +74,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdProcesosListos)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -79,10 +82,10 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tabControl1.Location = new System.Drawing.Point(322, 0);
+            this.tabControl1.Location = new System.Drawing.Point(298, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1424, 847);
+            this.tabControl1.Size = new System.Drawing.Size(1613, 965);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -98,7 +101,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1416, 818);
+            this.tabPage1.Size = new System.Drawing.Size(1605, 936);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Procesos";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -126,9 +129,9 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.grdTerminados);
-            this.groupBox4.Location = new System.Drawing.Point(955, 75);
+            this.groupBox4.Location = new System.Drawing.Point(1126, 78);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(413, 729);
+            this.groupBox4.Size = new System.Drawing.Size(471, 844);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Procesos Terminados";
@@ -146,7 +149,7 @@
             this.grdTerminados.Name = "grdTerminados";
             this.grdTerminados.RowHeadersWidth = 51;
             this.grdTerminados.RowTemplate.Height = 24;
-            this.grdTerminados.Size = new System.Drawing.Size(407, 708);
+            this.grdTerminados.Size = new System.Drawing.Size(465, 823);
             this.grdTerminados.TabIndex = 2;
             // 
             // dataGridViewTextBoxColumn4
@@ -173,9 +176,9 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.grdBloqueados);
-            this.groupBox3.Location = new System.Drawing.Point(467, 338);
+            this.groupBox3.Location = new System.Drawing.Point(579, 338);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(471, 469);
+            this.groupBox3.Size = new System.Drawing.Size(544, 587);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Proceso bloqueados";
@@ -193,7 +196,7 @@
             this.grdBloqueados.Name = "grdBloqueados";
             this.grdBloqueados.RowHeadersWidth = 51;
             this.grdBloqueados.RowTemplate.Height = 24;
-            this.grdBloqueados.Size = new System.Drawing.Size(465, 448);
+            this.grdBloqueados.Size = new System.Drawing.Size(538, 566);
             this.grdBloqueados.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn1
@@ -219,6 +222,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.groupBox5);
             this.groupBox2.Controls.Add(this.txtQuantum);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.txtCPU);
@@ -227,9 +231,9 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txtID);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(467, 78);
+            this.groupBox2.Location = new System.Drawing.Point(582, 78);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(471, 254);
+            this.groupBox2.Size = new System.Drawing.Size(541, 254);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Proceso en ejecucion";
@@ -303,7 +307,7 @@
             this.groupBox1.Controls.Add(this.grdProcesosListos);
             this.groupBox1.Location = new System.Drawing.Point(39, 78);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(413, 732);
+            this.groupBox1.Size = new System.Drawing.Size(534, 850);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Listos";
@@ -321,7 +325,7 @@
             this.grdProcesosListos.Name = "grdProcesosListos";
             this.grdProcesosListos.RowHeadersWidth = 51;
             this.grdProcesosListos.RowTemplate.Height = 24;
-            this.grdProcesosListos.Size = new System.Drawing.Size(407, 711);
+            this.grdProcesosListos.Size = new System.Drawing.Size(528, 829);
             this.grdProcesosListos.TabIndex = 0;
             // 
             // codigo
@@ -358,7 +362,8 @@
             // 
             this.cmbAlgoritmo.FormattingEnabled = true;
             this.cmbAlgoritmo.Items.AddRange(new object[] {
-            "Round Robin"});
+            "Round Robin",
+            "Por sorteo"});
             this.cmbAlgoritmo.Location = new System.Drawing.Point(39, 34);
             this.cmbAlgoritmo.Name = "cmbAlgoritmo";
             this.cmbAlgoritmo.Size = new System.Drawing.Size(413, 24);
@@ -408,11 +413,30 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Quantum";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.lblTicket);
+            this.groupBox5.Location = new System.Drawing.Point(311, 55);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(209, 185);
+            this.groupBox5.TabIndex = 13;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Ticket numero";
+            // 
+            // lblTicket
+            // 
+            this.lblTicket.AutoSize = true;
+            this.lblTicket.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTicket.Location = new System.Drawing.Point(59, 54);
+            this.lblTicket.Name = "lblTicket";
+            this.lblTicket.Size = new System.Drawing.Size(0, 58);
+            this.lblTicket.TabIndex = 0;
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1746, 847);
+            this.ClientSize = new System.Drawing.Size(1911, 965);
             this.Controls.Add(this.txtQuantumGeneral);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtTiempo);
@@ -420,7 +444,9 @@
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Menu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu Principal";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Menu_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -433,6 +459,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdProcesosListos)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -475,6 +503,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label lblTicket;
     }
 }
 
