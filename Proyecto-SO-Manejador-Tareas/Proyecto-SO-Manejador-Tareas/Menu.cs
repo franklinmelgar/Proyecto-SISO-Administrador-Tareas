@@ -169,6 +169,7 @@ namespace Proyecto_SO_Manejador_Tareas
 
         private void algoritmoPorSorteo()
         {
+            Boolean encontrado;
 
             //asignar probabilidad
             asignarProbabilidad();
@@ -178,7 +179,7 @@ namespace Proyecto_SO_Manejador_Tareas
 
             do
             {
-
+                encontrado = false;
                 int ticket = 0;
                 Random generador = new Random();
 
@@ -190,15 +191,18 @@ namespace Proyecto_SO_Manejador_Tareas
                 ultimonumero = ticket;
                 lblTicket.Invoke((MethodInvoker)(() => lblTicket.Text = ticket.ToString() ));
 
-                foreach (proceso pro in colaProcesos)
-                {
-                    proceso itemProceso = colaProcesos.Peek();
 
-                    if (ticket >= itemProceso.ticketMinimo && ticket <= itemProceso.ticketMaximo)
+                do
+                {
+                    //proceso itemProceso = colaProcesos.Peek();
+                    proceso itemProcesoLeido = colaProcesos.Dequeue();
+
+                    if (ticket >= itemProcesoLeido.ticketMinimo && ticket <= itemProcesoLeido.ticketMaximo)
                     {
-                        txtID.Invoke((MethodInvoker)(() => txtID.Text = itemProceso.id.ToString()));
-                        txtNombreProceso.Invoke((MethodInvoker)(() => txtNombreProceso.Text = itemProceso.nombre));
-                        txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = itemProceso.cpu.ToString()));
+                        encontrado = true;
+                        txtID.Invoke((MethodInvoker)(() => txtID.Text = itemProcesoLeido.id.ToString()));
+                        txtNombreProceso.Invoke((MethodInvoker)(() => txtNombreProceso.Text = itemProcesoLeido.nombre));
+                        txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = itemProcesoLeido.cpu.ToString()));
 
                         for (int i = quantum; i >= 1; i--)
                         {
@@ -206,28 +210,30 @@ namespace Proyecto_SO_Manejador_Tareas
                             txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = (int.Parse(txtCPU.Text) - 1).ToString()));
                             Thread.Sleep(tiempoms);
                         }
-
-                        if (itemProceso.cpu <= quantum)
+                        
+                        if (itemProcesoLeido.cpu <= quantum)
                         {
-
-                            itemProceso.cpu = 0;
-                            itemProceso.estado = "Terminado";
-                            colaProcesosTerminados.Dequeue();
+                            itemProcesoLeido.cpu = 0;
+                            itemProcesoLeido.estado = "Terminado";
+                            colaProcesosTerminados.Enqueue(itemProcesoLeido);
                             imprimirTerminados(colaProcesosTerminados);
                             asignarProbabilidad();
                             imprimirListos(colaProcesos, "Por Sorteo");
                         }
                         else
                         {
-                            itemProceso.cpu -= quantum;
-                            //colaProcesos.Enqueue(itemProcesoLeido);
+                            itemProcesoLeido.cpu -= quantum;
+                            colaProcesos.Enqueue(itemProcesoLeido);
                             imprimirListos(colaProcesos, "Por Sorteo");
                         }
-                    }                    
+                    }
 
-                    //proceso itemProcesoLeido = colaProcesos.Dequeue();
-                    
-                }
+                    if (encontrado.Equals(false))
+                    {
+                        colaProcesos.Enqueue(itemProcesoLeido);
+                    }
+
+                } while (encontrado == false);                
 
             } while (colaProcesos.Count > 0);
 
@@ -238,6 +244,7 @@ namespace Proyecto_SO_Manejador_Tareas
 
         private void asignarProbabilidad()
         {
+            totalPrioridad = 0;
             int cantidad = colaProcesos.Count();
 
             foreach (proceso pro in colaProcesos)
@@ -311,8 +318,6 @@ namespace Proyecto_SO_Manejador_Tareas
                 {
                     grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Rows.Add(pro.id.ToString(), pro.nombre, pro.cpu.ToString(), pro.tikects, pro.probabilidad.ToString() + "%" )));
                 }
-
-
 
             }
         }
