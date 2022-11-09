@@ -11,3 +11,28 @@ C:\Users\frank\OneDrive\Documents\Clases Ceutec\Proyectos desarrollo\Proyecto-SO
 C:\Users\frank\OneDrive\Documents\Clases Ceutec\Proyectos desarrollo\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.pdb
 C:\Users\frank\OneDrive\Documents\Clases Ceutec\Proyectos desarrollo\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.ProcesosRoundRobin.resources
 C:\Users\frank\OneDrive\Documents\Clases Ceutec\Proyectos desarrollo\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.ProcesoPorSorteo.resources
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\bin\Debug\Proyecto-SO-Manejador-Tareas.exe.config
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\bin\Debug\Proyecto-SO-Manejador-Tareas.exe
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\bin\Debug\Proyecto-SO-Manejador-Tareas.pdb
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.csproj.AssemblyReference.cache
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.csproj.SuggestedBindingRedirects.cache
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.Menu.resources
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.ProcesoCPU.resources
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.ProcesoPorSorteo.resources
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.ProcesosRoundRobin.resources
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.Properties.Resources.resources
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.csproj.GenerateResource.cache
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.csproj.CoreCompileInputs.cache
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.exe
+C:\Users\50496\Documents\C#\Proyecto-SISO-Administrador-Tareas\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.pdb
+C:\Users\50496\Documents\C#\Proyecto-SISO-CPU\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.csproj.AssemblyReference.cache
+C:\Users\50496\Documents\C#\Proyecto-SISO-CPU\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.csproj.SuggestedBindingRedirects.cache
+C:\Users\50496\Documents\C#\Proyecto-SISO-CPU\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.exe
+C:\Users\50496\Documents\C#\Proyecto-SISO-CPU\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.pdb
+C:\Users\50496\Documents\C#\Proyecto-SISO-CPU\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.Menu.resources
+C:\Users\50496\Documents\C#\Proyecto-SISO-CPU\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.ProcesoCPU.resources
+C:\Users\50496\Documents\C#\Proyecto-SISO-CPU\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.ProcesoPorSorteo.resources
+C:\Users\50496\Documents\C#\Proyecto-SISO-CPU\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.ProcesosRoundRobin.resources
+C:\Users\50496\Documents\C#\Proyecto-SISO-CPU\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto_SO_Manejador_Tareas.Properties.Resources.resources
+C:\Users\50496\Documents\C#\Proyecto-SISO-CPU\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.csproj.GenerateResource.cache
+C:\Users\50496\Documents\C#\Proyecto-SISO-CPU\Proyecto-SO-Manejador-Tareas\Proyecto-SO-Manejador-Tareas\obj\Debug\Proyecto-SO-Manejador-Tareas.csproj.CoreCompileInputs.cache

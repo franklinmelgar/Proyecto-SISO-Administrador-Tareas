@@ -13,7 +13,7 @@ namespace Proyecto_SO_Manejador_Tareas
     public partial class ProcesoCPU : Form
     {
         int id = 1;
-        public ProcesoCPU()
+        public ProcesoPrioridad()
         {
             InitializeComponent();
         }

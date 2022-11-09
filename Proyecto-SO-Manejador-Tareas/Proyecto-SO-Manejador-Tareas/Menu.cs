@@ -37,6 +37,7 @@ namespace Proyecto_SO_Manejador_Tareas
 
         private Thread hiloProcesoRoundRobin = null;
         private Thread hiloProcesoPorSorteo = null;
+        private Thread hiloProcesoCPU = null;
 
         Queue<proceso> colaProcesos = new Queue<proceso>();
         Queue<proceso> colaProcesosTerminados = new Queue<proceso>();
@@ -93,6 +94,13 @@ namespace Proyecto_SO_Manejador_Tareas
             }else if (cmbAlgoritmo.Text.Equals("Multiple Colas"))
             {
 
+
+            }else if (cmbAlgoritmo.Text.Equals("CPU"))
+            {
+                ProcesoCPU agregarProcesoCPU = new ProcesoCPU();
+                AddOwnedForm(agregarProcesoCPU);
+                agregarProcesoCPU.Show();
+
             }else if (cmbAlgoritmo.Text.Equals(""))
             {
                 MessageBox.Show("Debe seleccionar un algoritmo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -108,6 +116,7 @@ namespace Proyecto_SO_Manejador_Tareas
 
             hiloProcesoRoundRobin = new Thread(new ThreadStart(algoritmoRoundRobin));
             hiloProcesoPorSorteo = new Thread(new ThreadStart(algoritmoPorSorteo));
+            hiloProcesoCPU = new Thread(new ThreadStart(algoritmoCPU));
 
             if (txtQuantumGeneral.Text.Equals("") || txtTiempo.Text.Equals(""))
             {
@@ -124,6 +133,9 @@ namespace Proyecto_SO_Manejador_Tareas
                 }else if (cmbAlgoritmo.Text.Equals("Por sorteo"))
                 {
                     hiloProcesoPorSorteo.Start();
+                }else if (cmbAlgoritmo.Text.Equals("CPU"))
+                {
+                    hiloProcesoCPU.Start();
                 }
             }
             
@@ -168,6 +180,62 @@ namespace Proyecto_SO_Manejador_Tareas
 
             MessageBox.Show("Procesos completos", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+
+        }
+
+        private void algoritmoCPU()
+        {
+            imprimirListos(colaProcesos, "CPU");
+            //int menor = 0;
+            int menor = 0;
+
+            do {
+
+                //encontrar el menor
+                //primer ciclo solo para encontrar el menor
+                for (int i = menor; i < colaProceso; i++)
+                {
+                    Console.WriteLine(colaProcesos);
+			    }
+
+            //segundo ciclo solo para poner el menor en la primera posicion
+
+            proceso itemProceso = colaProcesos.Peek();
+                txtID.Invoke((MethodInvoker)(() => txtID.Text = itemProceso.id.ToString()));
+                txtNombreProceso.Invoke((MethodInvoker)(() => txtNombreProceso.Text = itemProceso.nombre));
+                txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = itemProceso.cpu.ToString()));
+
+                for (int i = quantum; i >= 1; i--)
+                {
+                    txtQuantum.Invoke((MethodInvoker)(() => txtQuantum.Text = i.ToString()));
+                    txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = (int.Parse(txtCPU.Text) - 1).ToString()));
+                    Thread.Sleep(tiempoms);
+                }
+
+                proceso itemProcesoLeido = colaProcesos.Dequeue();
+                if (itemProcesoLeido.cpu <= quantum)
+                {
+                    itemProcesoLeido.cpu = 0;
+                    itemProcesoLeido.estado = "Terminado";
+                    colaProcesosTerminados.Enqueue(itemProcesoLeido);
+                    imprimirTerminados(colaProcesosTerminados);
+                    imprimirListos(colaProcesos, "Round Robin");
+                }
+                else
+                {
+                    itemProcesoLeido.cpu -= quantum;
+                    colaProcesos.Enqueue(itemProcesoLeido);
+                    imprimirListos(colaProcesos, "Round Robin");
+                }
+
+            } while (colaProcesos.Count > 0);
+
+            MessageBox.Show("Procesos completos", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+        private void algoritmoPrioridad()
+        {
 
         }
 
@@ -315,7 +383,16 @@ namespace Proyecto_SO_Manejador_Tareas
                 groupBox7.Invoke((MethodInvoker)(() => groupBox7.Visible = true));
                 groupBox7.Invoke((MethodInvoker)(() => groupBox7.Location = new Point(30, 480)));
             }
-
+            else if (algoritmoNombre.Equals("CPU"))
+            {
+                groupBox1.Invoke((MethodInvoker)(() => groupBox1.Size = new Size(400, 700)));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("Id", "Id")));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("nombre", "Nombre Proceso")));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("rafaga", "Rafaga CPU")));
+                grupoTicket.Invoke((MethodInvoker)(() => grupoTicket.Visible = false));
+                groupBox6.Invoke((MethodInvoker)(() => groupBox6.Visible = false));
+                groupBox7.Invoke((MethodInvoker)(() => groupBox7.Visible = false));
+            }
         }
 
 
@@ -340,8 +417,10 @@ namespace Proyecto_SO_Manejador_Tareas
                 }else if (algoritmoNombre.Equals("Por Sorteo"))
                 {
                     grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Rows.Add(pro.id.ToString(), pro.nombre, pro.cpu.ToString(), pro.tikects, pro.probabilidad.ToString() + "%" )));
+                }else if (algoritmoNombre.Equals("CPU"))
+                {
+                    grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Rows.Add(pro.id.ToString(), pro.nombre, pro.cpu.ToString())));
                 }
-
             }
         }
 
@@ -355,6 +434,11 @@ namespace Proyecto_SO_Manejador_Tareas
         }
 
         private void Menu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbAlgoritmo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
