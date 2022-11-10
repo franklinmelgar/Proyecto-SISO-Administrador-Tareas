@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace Proyecto_SO_Manejador_Tareas
 {
-    public partial class ProcesoCPU : Form
+    public partial class ProcesoPrioridad : Form
     {
         int id = 1;
-        public ProcesoCPU()
+        public ProcesoPrioridad()
         {
             InitializeComponent();
         }

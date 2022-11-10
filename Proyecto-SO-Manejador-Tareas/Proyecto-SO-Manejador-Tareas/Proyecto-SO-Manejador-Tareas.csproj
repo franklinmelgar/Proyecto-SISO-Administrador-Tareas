@@ -70,6 +70,12 @@
     <Compile Include="ProcesoPorSorteo.Designer.cs">
       <DependentUpon>ProcesoPorSorteo.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProcesoPrioridad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProcesoPrioridad.Designer.cs">
+      <DependentUpon>ProcesoPrioridad.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProcesosRoundRobin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,11 +87,17 @@
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProcesoCPU.resx">
+      <DependentUpon>ProcesoCPU.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProcesoMiltipleCola.resx">
       <DependentUpon>ProcesoMiltipleCola.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProcesoPorSorteo.resx">
       <DependentUpon>ProcesoPorSorteo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcesoPrioridad.resx">
+      <DependentUpon>ProcesoPrioridad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProcesosRoundRobin.resx">
       <DependentUpon>ProcesosRoundRobin.cs</DependentUpon>

@@ -38,12 +38,15 @@ namespace Proyecto_SO_Manejador_Tareas
         private Thread hiloProcesoRoundRobin = null;
         private Thread hiloProcesoPorSorteo = null;
         private Thread hiloProcesoMultipleColas = null;
+        private Thread hiloProcesoCPU = null;
+        private Thread hiloProcesoPrioridad = null;
 
         Queue<proceso> colaProcesos = new Queue<proceso>();
         Queue<proceso> colaProcesosNivel2 = new Queue<proceso>();
         Queue<proceso> colaProcesosNivel3 = new Queue<proceso>();
         Queue<proceso> colaProcesosTerminados = new Queue<proceso>();
         Queue<proceso> colaProcesosBloqueados = new Queue<proceso>();
+
         int quantum;
         int tiempoms;
         int cantidadTickets;
@@ -77,6 +80,7 @@ namespace Proyecto_SO_Manejador_Tareas
             grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Rows.Clear()));
             grdBloqueados.Invoke((MethodInvoker)(() => grdBloqueados.Rows.Clear()));
             grdTerminados.Invoke((MethodInvoker)(() => grdTerminados.Rows.Clear()));
+
             colaProcesos.Clear();
             colaProcesosTerminados.Clear();
             colaProcesosBloqueados.Clear();
@@ -87,17 +91,33 @@ namespace Proyecto_SO_Manejador_Tareas
                 ProcesosRoundRobin agregarProcesos = new ProcesosRoundRobin();
                 AddOwnedForm(agregarProcesos);
                 agregarProcesos.Show();
-            }else if (cmbAlgoritmo.Text.Equals("Por sorteo"))
+            }
+            else if (cmbAlgoritmo.Text.Equals("Por sorteo"))
             {
                 ProcesoPorSorteo agregarProcesosSorteo = new ProcesoPorSorteo();
                 AddOwnedForm(agregarProcesosSorteo);
                 agregarProcesosSorteo.Show();
-            
-            }else if (cmbAlgoritmo.Text.Equals("Multiple Colas"))
+
+            }
+            else if (cmbAlgoritmo.Text.Equals("Multiple Colas"))
             {
                 ProcesoMiltipleCola agregarProcesosMultipleCola = new ProcesoMiltipleCola();
                 AddOwnedForm(agregarProcesosMultipleCola);
                 agregarProcesosMultipleCola.Show();
+
+            }
+            else if (cmbAlgoritmo.Text.Equals("CPU"))
+            {
+                ProcesoCPU agregarProcesoCPU = new ProcesoCPU();
+                AddOwnedForm(agregarProcesoCPU);
+                agregarProcesoCPU.Show();
+
+            }
+            else if (cmbAlgoritmo.Text.Equals("Prioridad"))
+            {
+                ProcesoPrioridad agregarProcesoPrioridad = new ProcesoPrioridad();
+                AddOwnedForm(agregarProcesoPrioridad);
+                agregarProcesoPrioridad.Show();
 
             }
             else if (cmbAlgoritmo.Text.Equals(""))
@@ -116,6 +136,8 @@ namespace Proyecto_SO_Manejador_Tareas
             hiloProcesoRoundRobin = new Thread(new ThreadStart(algoritmoRoundRobin));
             hiloProcesoPorSorteo = new Thread(new ThreadStart(algoritmoPorSorteo));
             hiloProcesoMultipleColas = new Thread(new ThreadStart(algoritmoMultipleCola));
+            hiloProcesoCPU = new Thread(new ThreadStart(algoritmoCPU));
+            hiloProcesoPrioridad = new Thread(new ThreadStart(algoritmoPrioridad));
 
             if (txtQuantumGeneral.Text.Equals("") || txtTiempo.Text.Equals(""))
             {
@@ -136,17 +158,183 @@ namespace Proyecto_SO_Manejador_Tareas
                 {
                     hiloProcesoMultipleColas.Start();
                 }
+                else if (cmbAlgoritmo.Text.Equals("CPU"))
+                {
+                    hiloProcesoCPU.Start();
+                }
+                else if (cmbAlgoritmo.Text.Equals("Prioridad"))
+                {
+                    hiloProcesoPrioridad.Start();
+                }
             }
             
         }
 
-        private void algoritmoRoundRobin()
-        {           
-
-            imprimirListos(colaProcesos, "Round Robin");
+        private void algoritmoPrioridad()
+        {
+            imprimirListos(colaProcesos, "Prioridad");
+            //int menor = 0;
+            int menor = 10000000;
+            string nombreProceso = "";
+            int id = 0;
 
             do
             {
+
+                foreach (proceso pro in colaProcesos)
+                {
+                    if (pro.prioridad < menor)
+                    {
+                        menor = pro.prioridad;
+                        nombreProceso = pro.nombre;
+                        id = pro.id;
+                    }
+                }
+
+                //segundo ciclo solo para poner el menor en la primera posicion
+                proceso itemProceso;
+                proceso itemProcesoLeido;
+
+                string nombre2 = "";
+                do
+                {
+                    itemProceso = colaProcesos.Peek();
+                    if (itemProceso.id.Equals(id))
+                    {
+                        nombre2 = itemProceso.nombre;
+                    }
+                    else
+                    {
+                        itemProcesoLeido = colaProcesos.Dequeue();
+                        colaProcesos.Enqueue(itemProcesoLeido);
+                    }
+
+                } while (nombre2 != nombreProceso);
+
+                itemProceso = colaProcesos.Peek();
+                txtID.Invoke((MethodInvoker)(() => txtID.Text = itemProceso.id.ToString()));
+                txtNombreProceso.Invoke((MethodInvoker)(() => txtNombreProceso.Text = itemProceso.nombre));
+                txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = itemProceso.cpu.ToString()));
+
+                for (int i = quantum; i >= 1; i--)
+                {
+                    txtQuantum.Invoke((MethodInvoker)(() => txtQuantum.Text = i.ToString()));
+                    txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = (int.Parse(txtCPU.Text) - 1).ToString()));
+                    Thread.Sleep(tiempoms);
+                }
+
+                itemProcesoLeido = colaProcesos.Dequeue();
+                if (itemProcesoLeido.cpu <= quantum)
+                {
+                    itemProcesoLeido.cpu = 0;
+                    itemProcesoLeido.estado = "Terminado";
+                    colaProcesosTerminados.Enqueue(itemProcesoLeido);
+                    imprimirTerminados(colaProcesosTerminados);
+                    imprimirListos(colaProcesos, "CPU");
+                    menor = 10000000;
+                    nombreProceso = "";
+                    id = 0;
+                }
+                else
+                {
+                    itemProcesoLeido.cpu -= quantum;
+                    colaProcesos.Enqueue(itemProcesoLeido);
+                    imprimirListos(colaProcesos, "CPU");
+                    colaProcesosBloqueados.Enqueue(itemProcesoLeido);
+                    imprimirBloqueados(colaProcesosBloqueados);
+                }
+
+            } while (colaProcesos.Count > 0);
+
+            MessageBox.Show("Procesos completos", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+        private void algoritmoCPU()
+        {
+            imprimirListos(colaProcesos, "CPU");
+            //int menor = 0;
+            int menor = 10000000;
+            string nombreProceso = "";
+            int id = 0;
+
+            do
+            {
+
+                foreach(proceso pro in colaProcesos)
+                {
+                    if (pro.cpu < menor)
+                    {
+                        menor = pro.cpu;
+                        nombreProceso = pro.nombre;
+                        id = pro.id;
+                    }
+                }
+
+                //segundo ciclo solo para poner el menor en la primera posicion
+                proceso itemProceso;
+                proceso itemProcesoLeido;
+
+                string nombre2 = "";
+                do
+                {
+                    itemProceso = colaProcesos.Peek();
+                    if (itemProceso.id.Equals(id)){
+                        nombre2 = itemProceso.nombre;
+                    }else
+                    {
+                        itemProcesoLeido = colaProcesos.Dequeue();
+                        colaProcesos.Enqueue(itemProcesoLeido);
+                    }
+
+                } while (nombre2 != nombreProceso);
+
+                itemProceso = colaProcesos.Peek();
+                txtID.Invoke((MethodInvoker)(() => txtID.Text = itemProceso.id.ToString()));
+                txtNombreProceso.Invoke((MethodInvoker)(() => txtNombreProceso.Text = itemProceso.nombre));
+                txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = itemProceso.cpu.ToString()));
+
+                for (int i = quantum; i >= 1; i--)
+                {
+                    txtQuantum.Invoke((MethodInvoker)(() => txtQuantum.Text = i.ToString()));
+                    txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = (int.Parse(txtCPU.Text) - 1).ToString()));
+                    Thread.Sleep(tiempoms);
+                }
+
+                itemProcesoLeido = colaProcesos.Dequeue();
+                if (itemProcesoLeido.cpu <= quantum)
+                {
+                    itemProcesoLeido.cpu = 0;
+                    itemProcesoLeido.estado = "Terminado";
+                    colaProcesosTerminados.Enqueue(itemProcesoLeido);
+                    imprimirTerminados(colaProcesosTerminados);
+                    imprimirListos(colaProcesos, "CPU");
+                    menor = 10000000;
+                    nombreProceso = "";
+                    id = 0;
+                }
+                else
+                {
+                    itemProcesoLeido.cpu -= quantum;
+                    colaProcesos.Enqueue(itemProcesoLeido);
+                    imprimirListos(colaProcesos, "CPU");
+                    colaProcesosBloqueados.Enqueue(itemProcesoLeido);
+                    imprimirBloqueados(colaProcesosBloqueados);
+                }
+
+            } while (colaProcesos.Count > 0);
+
+            MessageBox.Show("Procesos completos", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+        private void algoritmoRoundRobin()
+        {
+
+            imprimirListos(colaProcesos, "Round Robin");
+            do
+            {
+
                 proceso itemProceso = colaProcesos.Peek();
                 txtID.Invoke((MethodInvoker) (() => txtID.Text = itemProceso.id.ToString()));
                 txtNombreProceso.Invoke((MethodInvoker) (() => txtNombreProceso.Text = itemProceso.nombre));
@@ -164,15 +352,18 @@ namespace Proyecto_SO_Manejador_Tareas
                 {
                     itemProcesoLeido.cpu = 0;
                     itemProcesoLeido.estado = "Terminado";
-                    colaProcesosTerminados.Enqueue(itemProcesoLeido);
+                    colaProcesosTerminados.Enqueue(itemProcesoLeido);                    
                     imprimirTerminados(colaProcesosTerminados);
                     imprimirListos(colaProcesos, "Round Robin");
+                    
                 }
                 else
                 {
                     itemProcesoLeido.cpu -= quantum;
                     colaProcesos.Enqueue(itemProcesoLeido);
                     imprimirListos(colaProcesos, "Round Robin");
+                    //colaProcesosBloqueados.Enqueue(itemProcesoLeido);
+                    //imprimirBloqueados(colaProcesosBloqueados);
                 }
 
             } while (colaProcesos.Count > 0);
@@ -239,6 +430,8 @@ namespace Proyecto_SO_Manejador_Tareas
                             itemProcesoLeido.cpu -= quantum;
                             colaProcesos.Enqueue(itemProcesoLeido);
                             imprimirListos(colaProcesos, "Por Sorteo");
+                            //colaProcesosBloqueados.Enqueue(itemProcesoLeido);
+                            //imprimirBloqueados(colaProcesosBloqueados);
                         }
                     }
 
@@ -251,7 +444,7 @@ namespace Proyecto_SO_Manejador_Tareas
 
             } while (colaProcesos.Count > 0);
 
-            //MessageBox.Show("Procesos completos", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Procesos completos", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
         }
@@ -440,6 +633,24 @@ namespace Proyecto_SO_Manejador_Tareas
                 groupBox6.Invoke((MethodInvoker)(() => groupBox6.Location = new Point(30, 270)));
                 groupBox7.Invoke((MethodInvoker)(() => groupBox7.Visible = true));
                 groupBox7.Invoke((MethodInvoker)(() => groupBox7.Location = new Point(30, 480)));
+            }else if (algoritmoNombre.Equals("CPU")){
+                groupBox1.Invoke((MethodInvoker)(() => groupBox1.Size = new Size(400, 700)));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("Id", "Id")));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("nombre", "Nombre Proceso")));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("rafaga", "Rafaga CPU")));
+                grupoTicket.Invoke((MethodInvoker)(() => grupoTicket.Visible = false));
+                groupBox6.Invoke((MethodInvoker)(() => groupBox6.Visible = false));
+                groupBox7.Invoke((MethodInvoker)(() => groupBox7.Visible = false));
+            }
+            else if (algoritmoNombre.Equals("Prioridad"))
+            {
+                groupBox1.Invoke((MethodInvoker)(() => groupBox1.Size = new Size(400, 700)));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("Id", "Id")));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("nombre", "Nombre Proceso")));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("rafaga", "Rafaga CPU")));
+                grupoTicket.Invoke((MethodInvoker)(() => grupoTicket.Visible = false));
+                groupBox6.Invoke((MethodInvoker)(() => groupBox6.Visible = false));
+                groupBox7.Invoke((MethodInvoker)(() => groupBox7.Visible = false));
             }
 
         }
@@ -466,6 +677,14 @@ namespace Proyecto_SO_Manejador_Tareas
                 }else if (algoritmoNombre.Equals("Por Sorteo"))
                 {
                     grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Rows.Add(pro.id.ToString(), pro.nombre, pro.cpu.ToString(), pro.tikects, pro.probabilidad.ToString() + "%" )));
+                }
+                else if (algoritmoNombre.Equals("CPU"))
+                {
+                    grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Rows.Add(pro.id.ToString(), pro.nombre, pro.cpu.ToString())));
+                }
+                else if (algoritmoNombre.Equals("Prioridad"))
+                {
+                    grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Rows.Add(pro.id.ToString(), pro.nombre, pro.cpu.ToString())));
                 }
 
             }
