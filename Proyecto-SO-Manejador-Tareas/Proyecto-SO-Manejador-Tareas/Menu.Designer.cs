@@ -226,6 +226,102 @@
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.ReadOnly = true;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.grdProcesosListosNivel3);
+            this.groupBox7.Location = new System.Drawing.Point(36, 648);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(534, 250);
+            this.groupBox7.TabIndex = 4;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Listos nivel 3";
+            this.groupBox7.Visible = false;
+            // 
+            // grdProcesosListosNivel3
+            // 
+            this.grdProcesosListosNivel3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.grdProcesosListosNivel3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdProcesosListosNivel3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn10,
+            this.dataGridViewTextBoxColumn11,
+            this.dataGridViewTextBoxColumn12});
+            this.grdProcesosListosNivel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdProcesosListosNivel3.Location = new System.Drawing.Point(3, 18);
+            this.grdProcesosListosNivel3.Name = "grdProcesosListosNivel3";
+            this.grdProcesosListosNivel3.RowHeadersWidth = 51;
+            this.grdProcesosListosNivel3.RowTemplate.Height = 24;
+            this.grdProcesosListosNivel3.Size = new System.Drawing.Size(528, 229);
+            this.grdProcesosListosNivel3.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn10.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.HeaderText = "Nombre Proceso";
+            this.dataGridViewTextBoxColumn11.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "Rafaga CPU";
+            this.dataGridViewTextBoxColumn12.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.grdProcesosListosNivel2);
+            this.groupBox6.Location = new System.Drawing.Point(36, 376);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(534, 250);
+            this.groupBox6.TabIndex = 3;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Listos nivel 2";
+            this.groupBox6.Visible = false;
+            // 
+            // grdProcesosListosNivel2
+            // 
+            this.grdProcesosListosNivel2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.grdProcesosListosNivel2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdProcesosListosNivel2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9});
+            this.grdProcesosListosNivel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdProcesosListosNivel2.Location = new System.Drawing.Point(3, 18);
+            this.grdProcesosListosNivel2.Name = "grdProcesosListosNivel2";
+            this.grdProcesosListosNivel2.RowHeadersWidth = 51;
+            this.grdProcesosListosNivel2.RowTemplate.Height = 24;
+            this.grdProcesosListosNivel2.Size = new System.Drawing.Size(528, 229);
+            this.grdProcesosListosNivel2.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn7.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Nombre Proceso";
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "Rafaga CPU";
+            this.dataGridViewTextBoxColumn9.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            // 
             // btIniciar
             // 
             this.btIniciar.Location = new System.Drawing.Point(508, 28);
@@ -506,6 +602,8 @@
             // 
             this.cmbAlgoritmo.FormattingEnabled = true;
             this.cmbAlgoritmo.Items.AddRange(new object[] {
+            "CPU",
+            "Prioridad",
             "Round Robin",
             "Por sorteo",
             "Multiple Colas",
