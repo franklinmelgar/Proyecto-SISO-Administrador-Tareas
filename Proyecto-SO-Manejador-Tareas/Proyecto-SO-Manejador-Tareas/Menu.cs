@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Proyecto_SO_Manejador_Tareas
 {
@@ -26,10 +27,10 @@ namespace Proyecto_SO_Manejador_Tareas
         public int probabilidad;
         public int ticketMinimo;
         public int ticketMaximo;
-
+        public int llegada;
     }
 
-   
+
 
 
     public partial class Menu : Form
@@ -38,6 +39,7 @@ namespace Proyecto_SO_Manejador_Tareas
         private Thread hiloProcesoRoundRobin = null;
         private Thread hiloProcesoPorSorteo = null;
         private Thread hiloProcesoMultipleColas = null;
+        private Thread hiloProcesoSNP = null;
 
         Queue<proceso> colaProcesos = new Queue<proceso>();
         Queue<proceso> colaProcesosNivel2 = new Queue<proceso>();
@@ -71,6 +73,17 @@ namespace Proyecto_SO_Manejador_Tareas
 
             colaProcesos.Enqueue(itemColaProceso);
         }
+        public void agregarCola(int codigo, string nombre, int cpu, int llegada)
+        {
+            proceso itemColaProceso = new proceso();
+            itemColaProceso.id = codigo;
+            itemColaProceso.nombre = nombre;
+            itemColaProceso.cpu = cpu;
+            itemColaProceso.estado = "Listo";
+            itemColaProceso.llegada = llegada;
+
+            colaProcesos.Enqueue(itemColaProceso);
+        }
 
         private void btCargar_Click(object sender, EventArgs e)
         {
@@ -87,25 +100,30 @@ namespace Proyecto_SO_Manejador_Tareas
                 ProcesosRoundRobin agregarProcesos = new ProcesosRoundRobin();
                 AddOwnedForm(agregarProcesos);
                 agregarProcesos.Show();
-            }else if (cmbAlgoritmo.Text.Equals("Por sorteo"))
+            } else if (cmbAlgoritmo.Text.Equals("Por sorteo"))
             {
                 ProcesoPorSorteo agregarProcesosSorteo = new ProcesoPorSorteo();
                 AddOwnedForm(agregarProcesosSorteo);
                 agregarProcesosSorteo.Show();
-            
-            }else if (cmbAlgoritmo.Text.Equals("Multiple Colas"))
+
+            } else if (cmbAlgoritmo.Text.Equals("Multiple Colas"))
             {
                 ProcesoMiltipleCola agregarProcesosMultipleCola = new ProcesoMiltipleCola();
                 AddOwnedForm(agregarProcesosMultipleCola);
                 agregarProcesosMultipleCola.Show();
 
             }
+            else if (cmbAlgoritmo.Text.Equals("SNP"))
+            {
+                ProcesoSNP agregarProcesosSNP = new ProcesoSNP();
+                AddOwnedForm(agregarProcesosSNP);
+                agregarProcesosSNP.Show();
+
+            }
             else if (cmbAlgoritmo.Text.Equals(""))
             {
                 MessageBox.Show("Debe seleccionar un algoritmo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
 
         private void btIniciar_Click(object sender, EventArgs e)
@@ -116,6 +134,7 @@ namespace Proyecto_SO_Manejador_Tareas
             hiloProcesoRoundRobin = new Thread(new ThreadStart(algoritmoRoundRobin));
             hiloProcesoPorSorteo = new Thread(new ThreadStart(algoritmoPorSorteo));
             hiloProcesoMultipleColas = new Thread(new ThreadStart(algoritmoMultipleCola));
+            hiloProcesoSNP = new Thread(new ThreadStart(algoritmoSNP));
 
             if (txtQuantumGeneral.Text.Equals("") || txtTiempo.Text.Equals(""))
             {
@@ -128,34 +147,39 @@ namespace Proyecto_SO_Manejador_Tareas
 
                 if (cmbAlgoritmo.Text.Equals("Round Robin"))
                 {
-                    hiloProcesoRoundRobin.Start(); 
-                }else if (cmbAlgoritmo.Text.Equals("Por sorteo"))
+                    hiloProcesoRoundRobin.Start();
+                } else if (cmbAlgoritmo.Text.Equals("Por sorteo"))
                 {
                     hiloProcesoPorSorteo.Start();
-                }else if (cmbAlgoritmo.Text.Equals("Multiple Colas"))
+                } else if (cmbAlgoritmo.Text.Equals("Multiple Colas"))
                 {
                     hiloProcesoMultipleColas.Start();
                 }
+                else if (cmbAlgoritmo.Text.Equals("SNP"))
+                {
+                    algoritmoSNP();
+                    //hiloProcesoSNP.Start();
+                }
             }
-            
+
         }
 
         private void algoritmoRoundRobin()
-        {           
+        {
 
             imprimirListos(colaProcesos, "Round Robin");
 
             do
             {
                 proceso itemProceso = colaProcesos.Peek();
-                txtID.Invoke((MethodInvoker) (() => txtID.Text = itemProceso.id.ToString()));
-                txtNombreProceso.Invoke((MethodInvoker) (() => txtNombreProceso.Text = itemProceso.nombre));
-                txtCPU.Invoke((MethodInvoker) (() => txtCPU.Text = itemProceso.cpu.ToString()));
+                txtID.Invoke((MethodInvoker)(() => txtID.Text = itemProceso.id.ToString()));
+                txtNombreProceso.Invoke((MethodInvoker)(() => txtNombreProceso.Text = itemProceso.nombre));
+                txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = itemProceso.cpu.ToString()));
 
                 for (int i = quantum; i >= 1; i--)
                 {
-                    txtQuantum.Invoke((MethodInvoker) (() => txtQuantum.Text = i.ToString()));
-                    txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text =  (int.Parse(txtCPU.Text) - 1).ToString() ));
+                    txtQuantum.Invoke((MethodInvoker)(() => txtQuantum.Text = i.ToString()));
+                    txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = (int.Parse(txtCPU.Text) - 1).ToString()));
                     Thread.Sleep(tiempoms);
                 }
 
@@ -203,7 +227,7 @@ namespace Proyecto_SO_Manejador_Tareas
                 } while (ultimonumero == ticket);
 
                 ultimonumero = ticket;
-                lblTicket.Invoke((MethodInvoker)(() => lblTicket.Text = ticket.ToString() ));
+                lblTicket.Invoke((MethodInvoker)(() => lblTicket.Text = ticket.ToString()));
 
 
                 do
@@ -224,7 +248,7 @@ namespace Proyecto_SO_Manejador_Tareas
                             txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = (int.Parse(txtCPU.Text) - 1).ToString()));
                             Thread.Sleep(tiempoms);
                         }
-                        
+
                         if (itemProcesoLeido.cpu <= quantum)
                         {
                             itemProcesoLeido.cpu = 0;
@@ -247,7 +271,7 @@ namespace Proyecto_SO_Manejador_Tareas
                         colaProcesos.Enqueue(itemProcesoLeido);
                     }
 
-                } while (encontrado == false);                
+                } while (encontrado == false);
 
             } while (colaProcesos.Count > 0);
 
@@ -371,6 +395,78 @@ namespace Proyecto_SO_Manejador_Tareas
 
         }
 
+        private void algoritmoSNP()
+        {
+            imprimirListos(colaProcesos, "SNP");
+
+            proceso itemProceso3 = colaProcesos.Peek();
+            txtID.Invoke((MethodInvoker)(() => txtID.Text = itemProceso3.id.ToString()));
+            txtNombreProceso.Invoke((MethodInvoker)(() => txtNombreProceso.Text = itemProceso3.nombre));
+            txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = itemProceso3.cpu.ToString()));
+
+            int primeroCPU = Convert.ToInt32(txtCPU.Text);
+
+            for (int i = 0; i < primeroCPU; i--)
+            {
+                primeroCPU = primeroCPU - 1;
+                //MessageBox.Show(primeroCPU.ToString());
+                txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = primeroCPU.ToString()));
+                if (txtCPU.Text == "0")
+                {
+                    proceso itemProcesoLeido = colaProcesos.Dequeue();
+                    itemProcesoLeido.cpu = 0;
+                    itemProcesoLeido.estado = "Terminado";
+                    colaProcesosTerminados.Enqueue(itemProcesoLeido);
+                    imprimirTerminados(colaProcesosTerminados);
+                    imprimirListos(colaProcesos, "SNP");
+                    break;
+
+                }
+            }
+
+            List<Proceso> procesos = new List<Proceso>();
+
+            for (int i = 0; i < grdProcesosListos.Rows.Count - 1; i++)
+            {
+                Proceso prueba = new Proceso(grdProcesosListos.Rows[i].Cells[0].Value.ToString(),
+                    grdProcesosListos.Rows[i].Cells[1].Value.ToString(),
+                    Convert.ToInt32(grdProcesosListos.Rows[i].Cells[2].Value), i);
+
+                procesos.Add(prueba);
+            }
+
+            procesos.Sort(delegate (Proceso a, Proceso b)
+            {
+                return a.rafaga.CompareTo(b.rafaga);
+            });
+
+            foreach (var li in procesos)
+            {
+                //MessageBox.Show(li.rafaga.ToString());
+                txtID.Invoke((MethodInvoker)(() => txtID.Text = li.codigo));
+                txtNombreProceso.Invoke((MethodInvoker)(() => txtNombreProceso.Text = li.nombre));
+                txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = li.rafaga.ToString()));
+
+                int primerCPU = Convert.ToInt32(txtCPU.Text);
+
+                for (int i = 0; i < primerCPU; i--)
+                {
+                    primerCPU = primerCPU - 1;
+                    //MessageBox.Show(primerCPU.ToString()+""+i.ToString());
+                    txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = primerCPU.ToString()));
+
+                    if (txtCPU.Text == "0")
+                    {
+                        
+                        grdTerminados.Invoke((MethodInvoker)(() => grdTerminados.Rows.Add(li.codigo, li.nombre, li.rafaga.ToString())));
+                        break;
+                    }
+                    primerCPU = Convert.ToInt32(txtCPU.Text);
+                }
+            }
+            grdProcesosListos.Rows.Clear();
+            MessageBox.Show("Procesos completos", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+        }
         private void asignarProbabilidad()
         {
             totalPrioridad = 0;
@@ -441,7 +537,13 @@ namespace Proyecto_SO_Manejador_Tareas
                 groupBox7.Invoke((MethodInvoker)(() => groupBox7.Visible = true));
                 groupBox7.Invoke((MethodInvoker)(() => groupBox7.Location = new Point(30, 480)));
             }
-
+            else if (algoritmoNombre.Equals("SNP"))
+            {
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("Id", "Id")));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("nombre", "Nombre Proceso")));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("rafaga", "Rafaga CPU")));
+                grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Columns.Add("llegada", "Llegada")));
+            }
         }
 
 
@@ -466,6 +568,10 @@ namespace Proyecto_SO_Manejador_Tareas
                 }else if (algoritmoNombre.Equals("Por Sorteo"))
                 {
                     grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Rows.Add(pro.id.ToString(), pro.nombre, pro.cpu.ToString(), pro.tikects, pro.probabilidad.ToString() + "%" )));
+                }
+                else if (algoritmoNombre.Equals("SNP"))
+                {
+                    grdProcesosListos.Invoke((MethodInvoker)(() => grdProcesosListos.Rows.Add(pro.id.ToString(), pro.nombre, pro.cpu.ToString(), pro.llegada.ToString())));
                 }
 
             }
@@ -502,5 +608,6 @@ namespace Proyecto_SO_Manejador_Tareas
         {
 
         }
+
     }
 }
