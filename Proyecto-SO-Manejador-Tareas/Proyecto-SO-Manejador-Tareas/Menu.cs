@@ -939,12 +939,30 @@ namespace Proyecto_SO_Manejador_Tareas
                 //agregar proceso al marco iniciales
                 if (posicionInicial < cantidadMarcos)
                 {
-                    procesoEnBlanco.nombre = itemProceso.nombre;
-                    procesoEnBlanco.antiguedad = conteoAntiguedad;
-                    listaMarcos[posicionInicial] = procesoEnBlanco;
-                    posicionInicial++;
-                    conteoAntiguedad++;
-                    fallo = true;
+
+                    bool encontrado = false;
+
+                    for (int x = 0; x < listaMarcos.Count; x++)
+                    {
+                        if (listaMarcos[x].nombre.Equals(itemProceso.nombre))
+                        {
+                            procesoEnBlanco.nombre = listaMarcos[x].nombre;
+                            procesoEnBlanco.bitReferencia = true;
+                            //listaMarcos[x] = procesoEnBlanco;
+                            encontrado = true;
+                            break;
+                        }
+                    }
+
+                    if (!encontrado)
+                    {
+                        procesoEnBlanco.nombre = itemProceso.nombre;
+                        procesoEnBlanco.antiguedad = conteoAntiguedad;
+                        listaMarcos[posicionInicial] = procesoEnBlanco;
+                        posicionInicial++;
+                        conteoAntiguedad++;
+                        fallo = true;
+                    }                    
                 }
                 else
                 {
@@ -1082,13 +1100,31 @@ namespace Proyecto_SO_Manejador_Tareas
                 //agregar proceso al marco iniciales
                 if (posicionInicial < cantidadMarcos)
                 {
-                    procesoEnBlanco.nombre = itemProceso.nombre;
-                    procesoEnBlanco.antiguedad = conteoAntiguedad;
-                    procesoEnBlanco.bitReferencia = true;
-                    listaMarcos[posicionInicial] = procesoEnBlanco;
-                    posicionInicial++;
-                    conteoAntiguedad++;
-                    fallo = true;
+
+                    bool encontrado = false;
+
+                    for (int x = 0; x < listaMarcos.Count; x++)
+                    {
+                        if (listaMarcos[x].nombre.Equals(itemProceso.nombre))
+                        {
+                            procesoEnBlanco.nombre = listaMarcos[x].nombre;
+                            procesoEnBlanco.bitReferencia = true;
+                            //listaMarcos[x] = procesoEnBlanco;
+                            encontrado = true;
+                            break;
+                        }
+                    }
+
+                    if (!encontrado)
+                    {
+                        procesoEnBlanco.nombre = itemProceso.nombre;
+                        procesoEnBlanco.antiguedad = conteoAntiguedad;
+                        procesoEnBlanco.bitReferencia = true;
+                        listaMarcos[posicionInicial] = procesoEnBlanco;
+                        posicionInicial++;
+                        conteoAntiguedad++;
+                        fallo = true;
+                    }                    
                 }
                 else
                 {
@@ -1106,6 +1142,11 @@ namespace Proyecto_SO_Manejador_Tareas
                             encontrado = true;
                             break;
                         }
+
+                        //buscar el siguiente mas antiguo
+
+
+
                     }
 
                     //sino se encontrado el proceso se elimina el primero en ingresar
@@ -1128,7 +1169,7 @@ namespace Proyecto_SO_Manejador_Tareas
                             //detectar cual es el mas antiguo
                             for (int x = 0; x < listaMarcos.Count; x++)
                             {
-                                if (listaMarcos[x].antiguedad.Equals(ultimaAntiguedad + 1))
+                                if (listaMarcos[x].antiguedad.Equals(ultimaAntiguedad + 1) && listaMarcos[x].bitReferencia.Equals(false))
                                 {
                                     posicionSalida = x;
                                     ultimaAntiguedad = listaMarcos[x].antiguedad;
@@ -1143,6 +1184,7 @@ namespace Proyecto_SO_Manejador_Tareas
                                 {
                                     procesoEnBlanco.nombre = listaMarcos[x].nombre;
                                     procesoEnBlanco.bitReferencia = false;
+                                    procesoEnBlanco.antiguedad = listaMarcos[x].antiguedad;
                                     listaMarcos[x] = procesoEnBlanco;
                                 }
                             }
@@ -1152,6 +1194,8 @@ namespace Proyecto_SO_Manejador_Tareas
                         procesoEnBlanco.nombre = itemProceso.nombre;
                         procesoEnBlanco.antiguedad = conteoAntiguedad;
                         procesoEnBlanco.bitReferencia = true;
+                        ultimaAntiguedad++;
+                        conteoAntiguedad++;
                         listaMarcos[posicionSalida] = procesoEnBlanco;
                     }
 
@@ -1160,10 +1204,15 @@ namespace Proyecto_SO_Manejador_Tareas
                 //imprimir los marcos
                 for (int x = 0; x < listaMarcos.Count; x++)
                 {
-                    grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[x].Cells[posicionColumna].Value = listaMarcos[x].nombre + "(" + listaMarcos[x].bitReferencia.ToString() + ")"));
-                    grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[x].Cells[posicionColumna].Style.Alignment = DataGridViewContentAlignment.MiddleCenter));
-                    grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[x].Cells[posicionColumna].Style.BackColor = listaMarcos[x].color));
-                    //grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[x].Cells[posicionColumna].Style.ForeColor = Color.WhiteSmoke));
+
+                    if (!listaMarcos[x].nombre.Equals(""))
+                    {
+                        grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[x].Cells[posicionColumna].Value = listaMarcos[x].nombre + "(" + listaMarcos[x].bitReferencia.ToString() + ")"));
+                        grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[x].Cells[posicionColumna].Style.Alignment = DataGridViewContentAlignment.MiddleCenter));
+                        grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[x].Cells[posicionColumna].Style.BackColor = listaMarcos[x].color));
+                        //grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[x].Cells[posicionColumna].Style.ForeColor = Color.WhiteSmoke));
+                    }
+
                 }
 
                 if (fallo)
@@ -1216,7 +1265,9 @@ namespace Proyecto_SO_Manejador_Tareas
         private void btCargarProcesosMemoria_Click(object sender, EventArgs e)
         {
             grdColoresProcesos.Invoke((MethodInvoker)(() => grdColoresProcesos.Rows.Clear()));
+            grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Columns.Clear()));
             grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows.Clear()));
+            grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Columns.Add("Marcos", "Marcos")));
 
             colaProcesos.Clear();
             int conteo = grdProcesosIniciales.RowCount - 1;
