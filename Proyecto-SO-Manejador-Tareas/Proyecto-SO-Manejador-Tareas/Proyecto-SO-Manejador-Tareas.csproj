@@ -46,61 +46,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CargarProcesosIniciales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CargarProcesosIniciales.Designer.cs">
+      <DependentUpon>CargarProcesosIniciales.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProcesoCPU.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProcesoCPU.Designer.cs">
-      <DependentUpon>ProcesoCPU.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProcesoMiltipleCola.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProcesoMiltipleCola.Designer.cs">
-      <DependentUpon>ProcesoMiltipleCola.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Proceso.cs" />
     <Compile Include="ProcesoPorSorteo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ProcesoPorSorteo.Designer.cs">
       <DependentUpon>ProcesoPorSorteo.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProcesoPrioridad.cs">
+    <Compile Include="ProcesoSNP.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProcesoPrioridad.Designer.cs">
-      <DependentUpon>ProcesoPrioridad.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProcesosRoundRobin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProcesosRoundRobin.Designer.cs">
-      <DependentUpon>ProcesosRoundRobin.cs</DependentUpon>
+    <Compile Include="ProcesoSNP.Designer.cs">
+      <DependentUpon>ProcesoSNP.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CargarProcesosIniciales.resx">
+      <DependentUpon>CargarProcesosIniciales.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProcesoCPU.resx">
-      <DependentUpon>ProcesoCPU.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProcesoMiltipleCola.resx">
-      <DependentUpon>ProcesoMiltipleCola.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProcesoPorSorteo.resx">
       <DependentUpon>ProcesoPorSorteo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProcesoPrioridad.resx">
-      <DependentUpon>ProcesoPrioridad.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProcesosRoundRobin.resx">
-      <DependentUpon>ProcesosRoundRobin.cs</DependentUpon>
+    <EmbeddedResource Include="ProcesoSNP.resx">
+      <DependentUpon>ProcesoSNP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

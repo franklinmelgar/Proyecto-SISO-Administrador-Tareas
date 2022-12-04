@@ -1,6 +1,6 @@
 ﻿namespace Proyecto_SO_Manejador_Tareas
 {
-    partial class ProcesoPrioridad
+    partial class CargarProcesosIniciales
     {
         /// <summary>
         /// Required designer variable.
@@ -53,12 +53,13 @@
             this.nombre,
             this.CPU,
             this.Prioridad});
-            this.grdProcesos.Location = new System.Drawing.Point(24, 97);
+            this.grdProcesos.Location = new System.Drawing.Point(35, 90);
+            this.grdProcesos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdProcesos.Name = "grdProcesos";
             this.grdProcesos.RowHeadersWidth = 51;
             this.grdProcesos.RowTemplate.Height = 24;
             this.grdProcesos.Size = new System.Drawing.Size(627, 202);
-            this.grdProcesos.TabIndex = 27;
+            this.grdProcesos.TabIndex = 18;
             // 
             // codigo
             // 
@@ -90,77 +91,82 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(485, 310);
+            this.button2.Location = new System.Drawing.Point(496, 303);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(166, 32);
-            this.button2.TabIndex = 26;
+            this.button2.Size = new System.Drawing.Size(165, 32);
+            this.button2.TabIndex = 17;
             this.button2.Text = "Cargar Procesos";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btAgregar
             // 
-            this.btAgregar.Location = new System.Drawing.Point(560, 40);
+            this.btAgregar.Location = new System.Drawing.Point(571, 32);
+            this.btAgregar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btAgregar.Name = "btAgregar";
             this.btAgregar.Size = new System.Drawing.Size(91, 32);
-            this.btAgregar.TabIndex = 25;
+            this.btAgregar.TabIndex = 16;
             this.btAgregar.Text = "Agregar";
             this.btAgregar.UseVisualStyleBackColor = true;
             this.btAgregar.Click += new System.EventHandler(this.btAgregar_Click);
             // 
             // txtPrioridad
             // 
-            this.txtPrioridad.Location = new System.Drawing.Point(393, 50);
+            this.txtPrioridad.Location = new System.Drawing.Point(404, 42);
+            this.txtPrioridad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPrioridad.Name = "txtPrioridad";
             this.txtPrioridad.Size = new System.Drawing.Size(155, 22);
-            this.txtPrioridad.TabIndex = 24;
+            this.txtPrioridad.TabIndex = 15;
             // 
             // txtCPU
             // 
-            this.txtCPU.Location = new System.Drawing.Point(228, 50);
+            this.txtCPU.Location = new System.Drawing.Point(239, 42);
+            this.txtCPU.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCPU.Name = "txtCPU";
             this.txtCPU.Size = new System.Drawing.Size(155, 22);
-            this.txtCPU.TabIndex = 23;
+            this.txtCPU.TabIndex = 14;
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(24, 50);
+            this.txtNombre.Location = new System.Drawing.Point(35, 42);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(195, 22);
-            this.txtNombre.TabIndex = 22;
+            this.txtNombre.TabIndex = 13;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(390, 31);
+            this.label3.Location = new System.Drawing.Point(402, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(62, 16);
-            this.label3.TabIndex = 21;
+            this.label3.TabIndex = 12;
             this.label3.Text = "Prioridad";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(231, 31);
+            this.label2.Location = new System.Drawing.Point(242, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(102, 16);
-            this.label2.TabIndex = 20;
+            this.label2.TabIndex = 11;
             this.label2.Text = "Rafaga de CPU";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 31);
+            this.label1.Location = new System.Drawing.Point(32, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 16);
-            this.label1.TabIndex = 19;
+            this.label1.TabIndex = 10;
             this.label1.Text = "Proceso";
             // 
-            // ProcesoPrioridad
+            // CargarProcesosIniciales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(676, 374);
+            this.ClientSize = new System.Drawing.Size(698, 359);
             this.Controls.Add(this.grdProcesos);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btAgregar);
@@ -170,9 +176,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "ProcesoPrioridad";
+            this.Name = "CargarProcesosIniciales";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ProcesoPrioridad";
+            this.Text = "Cargar Procesos Iniciales";
+            this.Load += new System.EventHandler(this.CargarProcesosIniciales_Load);
             ((System.ComponentModel.ISupportInitialize)(this.grdProcesos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

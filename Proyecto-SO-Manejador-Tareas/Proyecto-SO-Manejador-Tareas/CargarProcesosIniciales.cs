@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace Proyecto_SO_Manejador_Tareas
 {
-    public partial class ProcesoCPU : Form
+    public partial class CargarProcesosIniciales : Form
     {
         int id = 1;
-        public ProcesoCPU()
+        public CargarProcesosIniciales()
         {
             InitializeComponent();
         }
@@ -29,6 +29,11 @@ namespace Proyecto_SO_Manejador_Tareas
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void CargarProcesosIniciales_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
