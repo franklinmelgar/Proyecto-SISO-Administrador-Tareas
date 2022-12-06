@@ -45,6 +45,7 @@ namespace Proyecto_SO_Manejador_Tareas
         private Thread hiloProcesoPrioridad = null;
         private Thread hiloFIFOMemoria = null;
         private Thread hiloSegundaOportunidad = null;
+        private Thread hiloOptimo=null;
 
 
         Queue<proceso> colaProcesosIniciales = new Queue<proceso>();
@@ -183,7 +184,11 @@ namespace Proyecto_SO_Manejador_Tareas
                 generarColumnasGrid("CPU");
                 imprimirListos(colaProcesos, "CPU");
             }
-
+            else if (cmbAlgoritmo.Text.Equals("SNP"))
+            {
+                generarColumnasGrid("SNP");
+                imprimirListos(colaProcesos, "SNP");
+            }
         }
 
         private void btIniciar_Click(object sender, EventArgs e)
@@ -219,7 +224,7 @@ namespace Proyecto_SO_Manejador_Tareas
                 }
                 else if (cmbAlgoritmo.Text.Equals("SNP"))
                 {
-                    algoritmoSNP();
+                    hiloProcesoSNP.Start();
                 }
                 else if (cmbAlgoritmo.Text.Equals("Prioridad"))
                 {
@@ -631,74 +636,64 @@ namespace Proyecto_SO_Manejador_Tareas
         }
         private void algoritmoSNP()
         {
-            imprimirListos(colaProcesos, "SNP");
+            
+            int menor = int.MaxValue;
+            string nombreProceso = "";
+            int id = 0;
 
-            proceso itemProceso3 = colaProcesos.Peek();
-            txtID.Invoke((MethodInvoker)(() => txtID.Text = itemProceso3.id.ToString()));
-            txtNombreProceso.Invoke((MethodInvoker)(() => txtNombreProceso.Text = itemProceso3.nombre));
-            txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = itemProceso3.cpu.ToString()));
-
-            int primeroCPU = Convert.ToInt32(txtCPU.Text);
-
-            for (int i = 0; i < primeroCPU; i--)
+            do
             {
-                primeroCPU = primeroCPU - 1;
-                //MessageBox.Show(primeroCPU.ToString());
-                txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = primeroCPU.ToString()));
-                if (txtCPU.Text == "0")
+                foreach (proceso pro in colaProcesos)
                 {
-                    proceso itemProcesoLeido = colaProcesos.Dequeue();
+                    if (pro.cpu < menor)
+                    {
+                        menor = pro.cpu;
+                        nombreProceso = pro.nombre;
+                        id = pro.id;
+                    }
+                }
+                proceso itemProceso;
+                proceso itemProcesoLeido;
+
+                string nombre2 = "";
+                do
+                {
+                    itemProceso = colaProcesos.Peek();
+                    if (itemProceso.id.Equals(id))
+                    {
+                        nombre2 = itemProceso.nombre;
+                    }
+                    else
+                    {
+                        itemProcesoLeido = colaProcesos.Dequeue();
+                        colaProcesos.Enqueue(itemProcesoLeido);
+                    }
+
+                } while (nombre2 != nombreProceso);
+
+                itemProceso = colaProcesos.Peek();
+                txtID.Invoke((MethodInvoker)(() => txtID.Text = itemProceso.id.ToString()));
+                txtNombreProceso.Invoke((MethodInvoker)(() => txtNombreProceso.Text = itemProceso.nombre));
+                txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = itemProceso.cpu.ToString()));
+
+                for (int i = quantum; i >= 1; i--)
+                {
+                    txtQuantum.Invoke((MethodInvoker)(() => txtQuantum.Text = i.ToString()));
+                    txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = (int.Parse(txtCPU.Text)-1).ToString()));
+                    Thread.Sleep(tiempoms);
+                }
+
+                    itemProcesoLeido = colaProcesos.Dequeue();
                     itemProcesoLeido.cpu = 0;
                     itemProcesoLeido.estado = "Terminado";
                     colaProcesosTerminados.Enqueue(itemProcesoLeido);
                     imprimirTerminados(colaProcesosTerminados);
-                    imprimirListos(colaProcesos, "SNP");
-                    break;
+                    imprimirListos(colaProcesos, "CPU");
+                    menor = 10000000;
+                    nombreProceso = "";
+                    id = 0;
 
-                }
-            }
-
-            List<Proceso> procesos = new List<Proceso>();
-
-            for (int i = 0; i < grdProcesosListos.Rows.Count - 1; i++)
-            {
-                Proceso prueba = new Proceso(grdProcesosListos.Rows[i].Cells[0].Value.ToString(),
-                    grdProcesosListos.Rows[i].Cells[1].Value.ToString(),
-                    Convert.ToInt32(grdProcesosListos.Rows[i].Cells[2].Value), i);
-
-                procesos.Add(prueba);
-            }
-
-            procesos.Sort(delegate (Proceso a, Proceso b)
-            {
-                return a.rafaga.CompareTo(b.rafaga);
-            });
-
-            foreach (var li in procesos)
-            {
-                //MessageBox.Show(li.rafaga.ToString());
-                txtID.Invoke((MethodInvoker)(() => txtID.Text = li.codigo));
-                txtNombreProceso.Invoke((MethodInvoker)(() => txtNombreProceso.Text = li.nombre));
-                txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = li.rafaga.ToString()));
-
-                int primerCPU = Convert.ToInt32(txtCPU.Text);
-
-                for (int i = 0; i < primerCPU; i--)
-                {
-                    primerCPU = primerCPU - 1;
-                    //MessageBox.Show(primerCPU.ToString()+""+i.ToString());
-                    txtCPU.Invoke((MethodInvoker)(() => txtCPU.Text = primerCPU.ToString()));
-
-                    if (txtCPU.Text == "0")
-                    {
-
-                        grdTerminados.Invoke((MethodInvoker)(() => grdTerminados.Rows.Add(li.codigo, li.nombre, li.rafaga.ToString())));
-                        break;
-                    }
-                    primerCPU = Convert.ToInt32(txtCPU.Text);
-                }
-            }
-            grdProcesosListos.Rows.Clear();
+            } while (colaProcesos.Count > 0);
             MessageBox.Show("Procesos completos", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private void asignarProbabilidad()
@@ -864,7 +859,7 @@ namespace Proyecto_SO_Manejador_Tareas
                 grdBloqueados.Invoke((MethodInvoker)(() => grdBloqueados.Rows.Add(pro.id.ToString(), pro.nombre, pro.cpu.ToString())));
             }
         }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Funciones para la memoria
 
         private void imprimirProcesosMemoria(Queue<proceso> procesos)
@@ -895,7 +890,10 @@ namespace Proyecto_SO_Manejador_Tareas
             grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows.Add("Fallos ")));
         }
 
-
+        private void algoritmoOptimoMemoria()
+        {
+            
+        }
         private void algortimoFIFOMemoria()
         {
 
@@ -911,6 +909,7 @@ namespace Proyecto_SO_Manejador_Tareas
             int conteoAntiguedad = 1;
             int ultimaAntiguedad = 0;
 
+
             for (int x = 1; x <= cantidadMarcos; x++)
             {
                 procesoEnBlanco.nombre = "";
@@ -918,7 +917,7 @@ namespace Proyecto_SO_Manejador_Tareas
             }
 
 
-            //Round Robbin para consumir los procesos
+           //Round Robbin para consumir los procesos
             do
             {
                 fallo = false;
@@ -962,14 +961,14 @@ namespace Proyecto_SO_Manejador_Tareas
                         posicionInicial++;
                         conteoAntiguedad++;
                         fallo = true;
-                    }                    
+                    }
                 }
                 else
                 {
                     //verificar si ya existe
                     bool encontrado = false;
 
-                    for(int x = 0; x < listaMarcos.Count; x++)
+                    for (int x = 0; x < listaMarcos.Count; x++)
                     {
                         if (listaMarcos[x].nombre.Equals(itemProceso.nombre))
                         {
@@ -984,7 +983,7 @@ namespace Proyecto_SO_Manejador_Tareas
                     {
                         fallo = true;
                         //buscar si hay vacios
-                        for(int x = 0; x < listaMarcos.Count; x++)
+                        for (int x = 0; x < listaMarcos.Count; x++)
                         {
                             if (listaMarcos[x].nombre.Equals(""))
                             {
@@ -1002,6 +1001,7 @@ namespace Proyecto_SO_Manejador_Tareas
                                 if (listaMarcos[x].antiguedad.Equals(ultimaAntiguedad + 1))
                                 {
                                     posicionSalida = x;
+                                    //conteoAntiguedad++;
                                     ultimaAntiguedad = listaMarcos[x].antiguedad;
                                     break;
                                 }
@@ -1012,6 +1012,7 @@ namespace Proyecto_SO_Manejador_Tareas
                         procesoEnBlanco.nombre = itemProceso.nombre;
                         procesoEnBlanco.antiguedad = conteoAntiguedad;
                         listaMarcos[posicionSalida] = procesoEnBlanco;
+                        conteoAntiguedad++;
                     }
 
                 }
@@ -1026,7 +1027,7 @@ namespace Proyecto_SO_Manejador_Tareas
                 }
 
                 if (fallo)
-                { 
+                {
                     grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[cantidadMarcos].Cells[posicionColumna].Value = "X"));
                     grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[cantidadMarcos].Cells[posicionColumna].Style.Alignment = DataGridViewContentAlignment.MiddleCenter));
                 }
@@ -1034,7 +1035,7 @@ namespace Proyecto_SO_Manejador_Tareas
                 {
                     grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[cantidadMarcos].Cells[posicionColumna].Value = "-"));
                     grdMemoria.Invoke((MethodInvoker)(() => grdMemoria.Rows[cantidadMarcos].Cells[posicionColumna].Style.Alignment = DataGridViewContentAlignment.MiddleCenter));
-                }        
+                }
 
 
                 proceso itemProcesoLeido = colaProcesos.Dequeue();
@@ -1057,11 +1058,11 @@ namespace Proyecto_SO_Manejador_Tareas
                 posicionColumna++;
 
             } while (colaProcesos.Count > 0);
+
         }
 
         private void algortimoSegundaOportunidadMemoria()
         {
-
             //generar lista con la cantidad de marcos
             List<proceso> listaMarcos = new List<proceso>();
             proceso procesoEnBlanco = new proceso();
@@ -1302,7 +1303,7 @@ namespace Proyecto_SO_Manejador_Tareas
 
             hiloFIFOMemoria = new Thread(new ThreadStart(algortimoFIFOMemoria));
             hiloSegundaOportunidad = new Thread(new ThreadStart(algortimoSegundaOportunidadMemoria));
-
+            hiloOptimo = new Thread(new ThreadStart(algoritmoOptimoMemoria));
 
             if (txtQuantumGeneral.Text.Equals("") || txtTiempo.Text.Equals(""))
             {
@@ -1320,6 +1321,10 @@ namespace Proyecto_SO_Manejador_Tareas
                 else if (cmbAlgoritmoMemoria.Text.Equals("Segunda Oportunidad"))
                 {
                     hiloSegundaOportunidad.Start();
+                }
+                else if (cmbAlgoritmoMemoria.Text.Equals("Optimo"))
+                {
+                    hiloOptimo.Start();
                 }
             }
 

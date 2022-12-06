@@ -24,6 +24,10 @@ namespace Proyecto_SO_Manejador_Tareas
             Menu menu = Owner as Menu;
             menu.agregarProcesoCola(id, txtNombre.Text, int.Parse(txtCPU.Text), int.Parse(txtPrioridad.Text));
             id++;
+            txtNombre.Clear();
+            txtCPU.Clear();
+            txtPrioridad.Clear();
+            txtNombre.Focus();
         }
 
         private void button2_Click(object sender, EventArgs e)
